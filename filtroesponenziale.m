@@ -1,3 +1,4 @@
+% filtroesponenziale.m : filter to expenonentially average IIR output
 function [vettorefiltrato] = filtroesponenziale (coeff, vettore)
 	vettorefiltrato = vettore;
 	if(~isempty(vettore))

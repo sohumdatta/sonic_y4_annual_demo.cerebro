@@ -1,5 +1,4 @@
-% mycleanup.m : A cleanup function called when the main is exited, and error occurs or Ctrl-C
-
+% mycleanup.m : A cleanup function (not implemented yet)
 function mycleanup(s)
 	func = 'mycleanup'
 

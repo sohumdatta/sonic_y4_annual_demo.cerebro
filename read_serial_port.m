@@ -1,3 +1,4 @@
+% read_serial_port.m : read raw value buffer, form samples from HEADER and FOOTER
 function [channels] = read_serial_port(buffer)
 
     nbytes=length(buffer);

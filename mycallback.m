@@ -1,5 +1,9 @@
+% mycallback.m: callback function that fetches new data, processes them and stores into variables
+
 function mycallback (s,event)
 %	disp('mycallback entered.');   
+	
+	% the following global variables are already defined in the main.m
 	global entireRawData;
 	global entireFilteredData;
 

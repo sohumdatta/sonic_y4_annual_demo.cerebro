@@ -1,3 +1,4 @@
+% preprocessing.m : preprocessor to filter raw data through a notch and smoothing, per channel.
 function [f3Output] = preprocessing (rawData)
 % Notch filter
 f_0 = 60;

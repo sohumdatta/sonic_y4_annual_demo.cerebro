@@ -1,4 +1,4 @@
-% bluetooth_trial.m: trial script for bluetooth driver using matlab
+% main.m: main script for cerebro demo of HD gesture recognition using matlab bluetooth driver
 
 clear all; close all; clc;
 %% -- This portion is added for execution in Linux
