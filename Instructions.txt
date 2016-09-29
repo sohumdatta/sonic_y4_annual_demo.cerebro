@@ -1,0 +1,57 @@
+Instructions for running HD Gesture recognition using Cerebro
+-------------------------------------------------------------
+This instruction is for setting up the code on Ubuntu. 
+Our board's name is 'CerebroBRD Fine Mondo 1000' with MAC '00:07:80:7C:87:D3'.
+These values may be different if another board is used.	Please use those newer values instead.
+	
+In the demo computer, the following steps should be done:
+
+1. All .m files should be located in this README's directory. Originally, this was
+	scheduled in ~/sonic_y4_annual_demo/cerebro/
+
+2. A quicker way to check that device is connected and paired is to run bluetoothctl and find the line:
+		[NEW] Device 00:07:80:7C:87:D3 CerebroBRD Fine Mondo 1000
+	If this line exists, skip to step 4.
+
+3. Run the following setup commands for pairing the device (yet to automate bluetoothctl):
+
+		bluetoothctl
+	
+	A bluetoothctl prompt should appear. Inside bluetoothctl, run the following:
+
+		power on
+		agent KeyboardOnly
+		default-agent
+		agent on
+		scan on
+		pair 00:07:80:7C:87:D3
+		trust 00:07:80:7C:87:D3
+
+	Quit bluetoothctl.
+
+4.	Ensure that the output of:
+
+		sudo rfcomm -a
+
+	is NULL to check that rfcomm0 is not used.
+	
+	If not, run:
+
+		sudo rfcomm unbind all
+		sudo rfcomm release all
+	
+	Sometimes running above commands return a message saying that the operation is already
+	in progress/not completed yet. This is because another process using this locked 
+	this resource and created a lock file in '/var/lock/' folder which it didn't clear.
+	For 'rfcomm0', the lock will be '/var/lock/LCK..rfcomm0' containing the PID of that process.
+	Kill that process using the PID if it exists, else manually this stale lock file.
+	Then, re-run the last two commands.
+	
+5. Finally, bind the device to the port rfcomm0		
+
+		sudo rfcomm bind rfcomm0 00:07:80:7C:87:D3 
+
+
+6. Move/create a matlab interactive process in this directory.
+
+7. Run 'main'. The Demo software must have started.
