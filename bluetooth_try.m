@@ -16,7 +16,9 @@ end
 s = serial(SERIAL_PORT);
 %% -- End of portion added for execution in Linux
 
-global entireData;
+global entireRawData;
+global entireFilteredData;
+
 %global buffer_bluetooth;
 buffer_bluetooth = [];
 flag = 0;
@@ -32,6 +34,8 @@ disp('Serial Port opened');
 
 fwrite (s, '=');
 
+screen_sz = get(groot, 'ScreenSize');
+figure('Position', screen_sz);
 
 %disp('Written = to serial, pausing till callback');
 %while (1)

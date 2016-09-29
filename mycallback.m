@@ -1,5 +1,9 @@
 function mycallback (s,event)
 %	disp('mycallback entered.');   
+	global entireRawData;
+	global entireFilteredData;
+
+	NUM_CHANNELS =8;
 
 	NUM_BYTES = 22528;
     nbytes = get(s,'BytesAvailable');
@@ -10,7 +14,16 @@ function mycallback (s,event)
 
 %	hold on;
 	figure(gcf);
-	plot(channels);		
+
+	for j = 1:NUM_CHANNELS
+    	filtered_channels(:,j) = preprocessing (channels(:,j));
+	end
+
+	plot_channels(NUM_CHANNELS, channels, filtered_channels);		
+
+	entireRawData = [entireRawData; channels];
+	entireFilteredData = [entireFilteredData; filtered_channels];
+	
 %	buffer_bluetooth = buffer;
 %	assignin('base', 'buffer_bluetooth', buffer);
 %	assignin('base', 'flag', 1);
