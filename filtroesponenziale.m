@@ -1,4 +1,4 @@
-% filtroesponenziale.m : filter to expenonentially average IIR output
+% filtroesponenziale.m : (Defunct) exponential averaging filter
 function [vettorefiltrato] = filtroesponenziale (coeff, vettore, chID)
 	persistent yn_1;	
 	vettorefiltrato = vettore;

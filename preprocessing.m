@@ -48,7 +48,8 @@ function [f3Output] = preprocessing (rawData, chID)
 
 	fabsOutput = abs(f12Output);
 
-	% Simone's imperfect exponnential average
-	f3Output = v0_filtroesponenziale (0.99, fabsOutput);
 	
+	% Simone's imperfect exponnential average
+%	f3Output = v0_filtroesponenziale (0.99, fabsOutput);
+	f3Output = fabsOutput;	%TODO: remove line, uncomment above		
 end %preprocessing

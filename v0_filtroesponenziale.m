@@ -1,4 +1,4 @@
-% filtroesponenziale.m : Simone's filter to exponentially average IIR output
+% filtroesponenziale.m : Simone's exponential average filter; approximate
 function [vettorefiltrato] = filtroesponenziale (coeff, vettore)
 	vettorefiltrato = vettore;
 	if(~isempty(vettore))

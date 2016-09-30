@@ -1,0 +1,12 @@
+% check_integrity.m: check if the processed stream data and batch data are within an error always
+% filtroesponenziale.m : (Defunct) exponential averaging filter
+% main.m: main script for cerebro demo of HD gesture recognition using matlab bluetooth driver
+% mycallback.m: callback function on BytesAvailable to fetch new data, process, stores into variables for HD and plotting
+% mycleanup.m : A cleanup function (not implemented yet)
+% plot_channels.m : plot all channel values, returns pointers to the plots
+% preprocessing_batch.m: a batch-only preprocessing of channel samples
+% preprocessing.m : preprocessor to filter raw data through a notch and smoothing, per channel.
+% read_serial_port.m : read raw value buffer, form samples from HEADER and FOOTER
+% sample_filter.m: stream iir filtering
+% test_sample_filter.m: test sample_filter.m
+% filtroesponenziale.m : Simone's exponential average filter; approximate

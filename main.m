@@ -3,10 +3,55 @@
 clear all; close all; clc;
 
 %% -- Global data defined here
+% A member function only declares that variable as global which he needs
+
+global NUM_CHANNELS;
 
 global entireRawData;	% all of the RAW values, each column containing a channel
 global entireFilteredData;	% filtered values of entire run, each column a channel
-global movingAverage;		% the moving average for each channel is stored here
+
+% the linked source variables of fixed length used by the plotter
+global plottedRawData1;	
+global plottedRawData2;	
+global plottedRawData3;	
+global plottedRawData4;	
+global plottedRawData5;	
+global plottedRawData6;	
+global plottedRawData7;	
+global plottedRawData8;	
+global plottedFilteredData1;
+global plottedFilteredData2;
+global plottedFilteredData3;
+global plottedFilteredData4;
+global plottedFilteredData5;
+global plottedFilteredData6;
+global plottedFilteredData7;
+global plottedFilteredData8;
+
+global PLOT_WINDOW;
+
+
+PLOT_WINDOW = 2000;		% number of samples plotted at any time
+NUM_CHANNELS = 8;
+plottedRawData1 = zeros(1,PLOT_WINDOW);
+plottedRawData2 = zeros(1,PLOT_WINDOW);
+plottedRawData3 = zeros(1,PLOT_WINDOW);
+plottedRawData4 = zeros(1,PLOT_WINDOW);
+plottedRawData5 = zeros(1,PLOT_WINDOW);
+plottedRawData6 = zeros(1,PLOT_WINDOW);
+plottedRawData7 = zeros(1,PLOT_WINDOW);
+plottedRawData8 = zeros(1,PLOT_WINDOW);
+plottedFilteredData1 = zeros(1,PLOT_WINDOW);
+plottedFilteredData2 = zeros(1,PLOT_WINDOW);
+plottedFilteredData3 = zeros(1,PLOT_WINDOW);
+plottedFilteredData4 = zeros(1,PLOT_WINDOW);
+plottedFilteredData5 = zeros(1,PLOT_WINDOW);
+plottedFilteredData6 = zeros(1,PLOT_WINDOW);
+plottedFilteredData7 = zeros(1,PLOT_WINDOW);
+plottedFilteredData8 = zeros(1,PLOT_WINDOW);
+
+plottedRawData = zeros(NUM_CHANNELS, PLOT_WINDOW);
+plottedFilteredData = zeros(NUM_CHANNELS, PLOT_WINDOW);
 
 %% -- This portion is added for execution in Linux
 port_no = 0;
@@ -22,11 +67,24 @@ if ~isempty(openPorts);
 end
 s = serial(SERIAL_PORT);
 %% -- End of portion added for execution in Linux
+
+
 %global buffer_bluetooth;
 buffer_bluetooth = [];
 flag = 0;
 
-%% -- next line commented for linux
+
+%% -- Generate the screen (GUI goes here) and plot initially, save link variable names
+screen_sz = get(groot, 'ScreenSize');
+figure('Position', screen_sz);
+
+[h_raw, h] = plot_channels(NUM_CHANNELS, plottedRawData, plottedFilteredData);		
+for i = 1:NUM_CHANNELS
+	h_raw(i).YDataSource = sprintf('plottedRawData%d',i);
+	h(i).YDataSource = sprintf('plottedFilteredData%d',i);
+end
+
+% next line commented for linux
 %s = Bluetooth('CerebroBRD Fine Mondo 1000', 1);
 s.BytesAvailableFcn = {'mycallback'};
 s.BytesAvailableFcnCount = 22528;
@@ -36,9 +94,6 @@ fopen (s);
 disp('Serial Port opened');
 
 fwrite (s, '=');
-
-screen_sz = get(groot, 'ScreenSize');
-figure('Position', screen_sz);
 
 %disp('Written = to serial, pausing till callback');
 %while (1)
