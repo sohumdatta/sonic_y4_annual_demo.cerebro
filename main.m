@@ -1,6 +1,13 @@
 % main.m: main script for cerebro demo of HD gesture recognition using matlab bluetooth driver
 
 clear all; close all; clc;
+
+%% -- Global data defined here
+
+global entireRawData;	% all of the RAW values, each column containing a channel
+global entireFilteredData;	% filtered values of entire run, each column a channel
+global fz_notch;				% filter delay coefficients used for streaming notch filter.
+
 %% -- This portion is added for execution in Linux
 port_no = 0;
 SERIAL_PORT = strcat('/dev/rfcomm', int2str(port_no))
@@ -15,10 +22,6 @@ if ~isempty(openPorts);
 end
 s = serial(SERIAL_PORT);
 %% -- End of portion added for execution in Linux
-
-global entireRawData;
-global entireFilteredData;
-
 %global buffer_bluetooth;
 buffer_bluetooth = [];
 flag = 0;

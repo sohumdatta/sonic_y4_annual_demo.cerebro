@@ -7,7 +7,7 @@ function mycallback (s,event)
 	global entireRawData;
 	global entireFilteredData;
 
-	NUM_CHANNELS =8;
+	NUM_CHANNELS = 8;
 
 	NUM_BYTES = 22528;
     nbytes = get(s,'BytesAvailable');
@@ -20,7 +20,7 @@ function mycallback (s,event)
 	figure(gcf);
 
 	for j = 1:NUM_CHANNELS
-    	filtered_channels(:,j) = preprocessing (channels(:,j));
+    	filtered_channels(:,j) = preprocessing (channels(:,j), j);
 	end
 
 	plot_channels(NUM_CHANNELS, channels, filtered_channels);		

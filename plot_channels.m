@@ -10,8 +10,8 @@ function [h_raw, h] = plot_channels(NUM_CHANNELS, channels, filtered_channels)
 
 	NUM_SAMPLES = size(filtered_channels, 1);
 	xrange = 1:NUM_SAMPLES;
-	yrange = [-10000 , 10000];
-	yfilterrange = [0 , 21000];
+	yrange = [-1000 , 1000];
+	yfilterrange = [0 , 2000];
 
 	channel_raw = channels';
 	channel = filtered_channels';
