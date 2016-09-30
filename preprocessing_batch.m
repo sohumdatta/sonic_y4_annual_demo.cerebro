@@ -12,7 +12,7 @@ function [output] = preprocessing_batch(input)
 	%% -- moving average (centering and shifting to unsigned)
 	% y[n] = (x[n] + x[n-1] + ... x[n-K+1])/K; K is the window size
 	% using the MATLAB filter method, b = [1/K 1/K ... <K times> ], and a = [1];
-	K = 128; % the windor for moving average
+	K = 128; % the window for moving average
 	b = 1/K * ones(1,K);
 	a = 1;
 	output2 = filter(b, a, output1);

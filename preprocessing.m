@@ -5,17 +5,28 @@ function [f3Output] = preprocessing (rawData, chID)
 	
 	global entireRawData;	% all of the RAW values, each column containing a channel
 	global entireFilteredData;	% filtered values of entire run, each column a channel
-	global movingAverage;		% the moving average for each channel is stored here
 
-	BUFFER_SIZE = 128;	%moving average buffer, expanded and used only here
-		
 	%% -- Notch filter
 	f_0 = 60;  %US Power supply freq is 60 Hz, but Simone used 50Hz
 	Q = 60;
 	fs = 1000; %1KHz
 	wo = f_0/(fs/2);  
 	bw = wo/Q;
-	[b,a] = iirnotch (wo,bw);
+	[bnotch, anotch] = iirnotch (wo,bw);
+
+
+	%% -- Moving average filter
+	% y[n] = (x[n] + x[n-1] + ... x[n-K+1])/K; K is the window size
+	% using the MATLAB filter method, b = [1/K 1/K ... <K times> ], and a = [1];
+	K = 128; % the window for moving average
+	bavg = 1/K * ones(1,K);
+	aavg = [1];
+
+
+	%% --- Combined Moving average and Notch filters
+	b = conv(bnotch, bavg);
+	a = conv(anotch, aavg);
+
 	L = max(length(a), length(b));	% maximum past states reqd for stream filtering
 	
 	if(~isequal(size(entireFilteredData), size(entireRawData))) 
@@ -25,44 +36,19 @@ function [f3Output] = preprocessing (rawData, chID)
 
 	x_prev = []; y_prev = [];
 	if(n_samples > 0)
-		x_prev = entireRawData(n_samples - L + 1 : n_samples, chID);
-		y_prev = entireFilteredData(n_samples - L + 1 : n_samples, chID);
+		x_prev = entireRawData(:,chID); 
+		y_prev = entireFilteredData(:,chID);
+
+		% Now remove all values except the last L ones (if so many are there)
+		x_prev(1:n_samples - L) = [];
+		y_prev(1:n_samples - L) = [];
 	end  %if(n_samples > 0)
 
-	f1Output = sample_filter(b, a, rawData, x_prev, y_prev);	
+	f12Output = sample_filter(b, a, rawData, x_prev, y_prev);	
 
+	fabsOutput = abs(f12Output);
 
-	%% -- Moving average filter
-	% y[n] = y[n - 1] + (x[n] - x[n-K])/K; K is the size of the window for averaging.
-	favgOutput = [];
-	
-	if(isempty(entireRawData)) 
-	% The entireRawData is empty, so this is the first call to mycallback
-	% Therefore, the first set of data for this channel.
-		favgOutput(1:BUFFER_SIZE-1) = 0;
-		favgOutput(BUFFER_SIZE) = mean(f1Output(1:BUFFER_SIZE));
-
-		for i = BUFFER_SIZE + 1 : length(f1Output)
-			favgOutput(i) = favgOutput(i-1) + (rawData(i) - rawData(i-BUFFER_SIZE))/BUFFER_SIZE;
-		end	%for i = BUFFER_SIZE + 1 : length(f1Output)
-		movingAverage(chID) = favgOutput(i);	% save the moving average for the next packet group
-	else
-	end %if(isempty(entireRawData)) 
-
-	for i = 1:length(rawData)
-		favgOutput
-		if(isempty(entireRawData)
-				favgOutput(i) = rawData(i)
-		else
-				favgOutput(i) = movingAverage(chID) + 
-				
-	    if(size(movingAverageBuffer, 1) < ING_AVERAGE_BUFFER_SIZE)
-    	    movingAverageBuffer(:, chID) = [movingAverageBuffer(:,chID); rawData(i)];
-    	else
-       		movingAverageBuffer(:, chID) = [movingAverageBuffer(2:MOVING_AVERAGE_BUFFER_SIZE, chID); rawData(i)];
-    	end
-	end
-	f2Output = abs(favgOutput);
-	f3Output = v0_filtroesponenziale (0.99, f2Output);
+	% Simone's imperfect exponnential average
+	f3Output = v0_filtroesponenziale (0.99, fabsOutput);
 	
 end %preprocessing
