@@ -1,4 +1,4 @@
-% test_sample_filter.m: test sample filter
+% test_sample_filter.m: test sample_filter.m
 
 lb = randi([2 20]);
 la = randi([2 20]);
@@ -35,7 +35,7 @@ end
 tol = 1e-10;	% a very small constant for floating point comparison
 
 if(all(abs(y - ynew) <= tol))  
-	disp('PASSED test: sample_filter');
+	disp('PASSED simple test: sample_filter');
 else 
-	disp('FAILED test: sample_filter');
+	disp('FAILED simple test: sample_filter');
 end
