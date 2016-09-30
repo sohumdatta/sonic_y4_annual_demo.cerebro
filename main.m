@@ -6,7 +6,7 @@ clear all; close all; clc;
 
 global entireRawData;	% all of the RAW values, each column containing a channel
 global entireFilteredData;	% filtered values of entire run, each column a channel
-global fz_notch;				% filter delay coefficients used for streaming notch filter.
+global movingAverageBuffer;	% the buffer used to hold the values of a moving average
 
 %% -- This portion is added for execution in Linux
 port_no = 0;
