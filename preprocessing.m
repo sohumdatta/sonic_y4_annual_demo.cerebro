@@ -5,9 +5,9 @@ function [f3Output] = preprocessing (rawData, chID)
 	
 	global entireRawData;	% all of the RAW values, each column containing a channel
 	global entireFilteredData;	% filtered values of entire run, each column a channel
-	global movingAverageBuffer;
+	global movingAverage;		% the moving average for each channel is stored here
 
-	MOVING_AVERAGE_BUFFER_SIZE = 128;	%moving average buffer, expanded and used only here
+	BUFFER_SIZE = 128;	%moving average buffer, expanded and used only here
 		
 	%% -- Notch filter
 	f_0 = 60;  %US Power supply freq is 60 Hz, but Simone used 50Hz
@@ -33,12 +33,30 @@ function [f3Output] = preprocessing (rawData, chID)
 
 
 	%% -- Moving average filter
-	favgOutput = []; 
+	% y[n] = y[n - 1] + (x[n] - x[n-K])/K; K is the size of the window for averaging.
+	favgOutput = [];
+	
+	if(isempty(entireRawData)) 
+	% The entireRawData is empty, so this is the first call to mycallback
+	% Therefore, the first set of data for this channel.
+		favgOutput(1:BUFFER_SIZE-1) = 0;
+		favgOutput(BUFFER_SIZE) = mean(f1Output(1:BUFFER_SIZE));
+
+		for i = BUFFER_SIZE + 1 : length(f1Output)
+			favgOutput(i) = favgOutput(i-1) + (rawData(i) - rawData(i-BUFFER_SIZE))/BUFFER_SIZE;
+		end	%for i = BUFFER_SIZE + 1 : length(f1Output)
+		movingAverage(chID) = favgOutput(i);	% save the moving average for the next packet group
+	else
+	end %if(isempty(entireRawData)) 
+
 	for i = 1:length(rawData)
-		%TODO: May need to move this statement at the end of for loop
-    	favgOutput(i) = f1Output(i) - mean(movingAverageBuffer(:,chID));
-		
-	    if(size(movingAverageBuffer, 1) < MOVING_AVERAGE_BUFFER_SIZE)
+		favgOutput
+		if(isempty(entireRawData)
+				favgOutput(i) = rawData(i)
+		else
+				favgOutput(i) = movingAverage(chID) + 
+				
+	    if(size(movingAverageBuffer, 1) < ING_AVERAGE_BUFFER_SIZE)
     	    movingAverageBuffer(:, chID) = [movingAverageBuffer(:,chID); rawData(i)];
     	else
        		movingAverageBuffer(:, chID) = [movingAverageBuffer(2:MOVING_AVERAGE_BUFFER_SIZE, chID); rawData(i)];

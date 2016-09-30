@@ -6,7 +6,7 @@ clear all; close all; clc;
 
 global entireRawData;	% all of the RAW values, each column containing a channel
 global entireFilteredData;	% filtered values of entire run, each column a channel
-global movingAverageBuffer;	% the buffer used to hold the values of a moving average
+global movingAverage;		% the moving average for each channel is stored here
 
 %% -- This portion is added for execution in Linux
 port_no = 0;
