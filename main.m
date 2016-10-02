@@ -32,7 +32,7 @@ global PLOT_WINDOW;
 
 
 PLOT_WINDOW = 2000;		% number of samples plotted at any time
-NUM_CHANNELS = 8;
+NUM_CHANNELS = 4;
 plottedRawData1 = zeros(1,PLOT_WINDOW);
 plottedRawData2 = zeros(1,PLOT_WINDOW);
 plottedRawData3 = zeros(1,PLOT_WINDOW);

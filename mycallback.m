@@ -36,7 +36,7 @@ function mycallback (s,event)
 %	hold on;
 	figure(gcf);
 
-	for j = 1:NUM_CHANNELS
+	for j = 1:8
     	filtered_channels(:,j) = preprocessing (channels(:,j), j);
 	end
 	%% Note: at this point channels and filtered_channels have each row a data 

@@ -12,20 +12,20 @@ function [f3Output] = preprocessing (rawData, chID)
 	fs = 1000; %1KHz
 	wo = f_0/(fs/2);  
 	bw = wo/Q;
-	[bnotch, anotch] = iirnotch (wo,bw);
+	[b, a] = iirnotch (wo,bw);
 
 
 	%% -- Moving average filter
 	% y[n] = (x[n] + x[n-1] + ... x[n-K+1])/K; K is the window size
 	% using the MATLAB filter method, b = [1/K 1/K ... <K times> ], and a = [1];
-	K = 128; % the window for moving average
-	bavg = 1/K * ones(1,K);
-	aavg = [1];
+%	K = 128; % the window for moving average
+%	bavg = 1/K * ones(1,K);
+%	aavg = [1];
 
 
 	%% --- Combined Moving average and Notch filters
-	b = conv(bnotch, bavg);
-	a = conv(anotch, aavg);
+%	b = conv(bnotch, bavg);
+%	a = conv(anotch, aavg);
 
 	L = max(length(a), length(b));	% maximum past states reqd for stream filtering
 	
@@ -45,11 +45,11 @@ function [f3Output] = preprocessing (rawData, chID)
 	end  %if(n_samples > 0)
 
 	f12Output = sample_filter(b, a, rawData, x_prev, y_prev);	
+	f12Output = f12Output - mean(f12Output);
 
 	fabsOutput = abs(f12Output);
-
 	
 	% Simone's imperfect exponnential average
-%	f3Output = v0_filtroesponenziale (0.99, fabsOutput);
-	f3Output = fabsOutput;	%TODO: remove line, uncomment above		
+	f3Output = v0_filtroesponenziale (0.99, fabsOutput);
+%	f3Output = fabsOutput;	%TODO: remove line, uncomment above		
 end %preprocessing
