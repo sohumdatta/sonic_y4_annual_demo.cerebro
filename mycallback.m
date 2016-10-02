@@ -62,7 +62,7 @@ function mycallback (s,event)
 		plottedRawData5 = [plottedRawData5(num_samples+1:end), newRawData(5,:)];
 		plottedRawData6 = [plottedRawData6(num_samples+1:end), newRawData(6,:)];
 		plottedRawData7 = [plottedRawData7(num_samples+1:end), newRawData(7,:)];
-		plottedRawData8 = [plottedRawData7(num_samples+1:end), newRawData(8,:)];
+		plottedRawData8 = [plottedRawData8(num_samples+1:end), newRawData(8,:)];
 
 		plottedFilteredData1 = [plottedFilteredData1(num_samples+1:end), newFilteredData(1,:)]; 
 		plottedFilteredData2 = [plottedFilteredData2(num_samples+1:end), newFilteredData(2,:)]; 
