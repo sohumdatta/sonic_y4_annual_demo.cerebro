@@ -1,4 +1,4 @@
-Instructions for running HD Gesture recognition using Cerebro
+5 Instructions.txt: Instructions for running HD Gesture recognition using Cerebro
 -------------------------------------------------------------
 This instruction is for setting up the code on Ubuntu. 
 Our board's name is 'CerebroBRD Fine Mondo 1000' with MAC '00:07:80:7C:87:D3'.
