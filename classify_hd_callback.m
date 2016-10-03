@@ -62,8 +62,10 @@ function classify_hd_callback (s,event)
 	refreshdata			% NOTE: the plot must refresh now
 	
 KeySet = {1, 2, 3, 4};
-valueSet = {'Rest', 'Index Finger', 'Fist closed', 'Palm up'};
-mapObj = containers.Map(KeySet, valueSet);
+valueSet = {'Resting', 'Index Finger', 'Fist closed', 'Palm up'};
+imageSet = {'[]', 'img_index_finger', 'img_closed_fist', 'img_open_hand'};
+mapDesc = containers.Map(KeySet, valueSet);		% A container map of gesture descriptions
+mapImg = containers.Map(KeySet, imageSet);		% A container map of image names used in the calling main
 
 
 
@@ -79,9 +81,11 @@ mapObj = containers.Map(KeySet, valueSet);
     test_set(:,1:4) = predata(1:DS:end,1:4);
 	if(flag_classify == 1)
     	[predicLabel, freq] = hdctest (test_set, AM, CiM, iM, D, N, percision, NLABELS);
-		evalin('base',['set(h_TextBox, ''String'', '' Gesture:', mapObj(predicLabel),  ''');']);
+		evalin('base',['set(h_TextBox, ''String'', '' Gesture: ', mapDesc(predicLabel),  ''');']);	
+		evalin('base', ['axes(img_axes); imshow(', mapImg(predicLabel),');');	% plot the corresponding image in the space
 	else
-		evalin('base',['set(h_TextBox, ''String'', '' Gesture: N/A '');']);
+		evalin('base',['set(h_TextBox, ''String'', '' Gesture: N/A (Press ''CLASSIFY'' to begin) '');']);
+		evalin('base','axes(img_axes); imshow([]);');	% clear the image being shown
 	end
 %	switch (predicLabel)
 %		case 1

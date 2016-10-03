@@ -58,7 +58,8 @@ plottedFilteredData8 = zeros(1,PLOT_WINDOW);
 plottedRawData = zeros(NUM_CHANNELS, PLOT_WINDOW);
 plottedFilteredData = zeros(NUM_CHANNELS, PLOT_WINDOW);
 
-
+% gestur images are loaded now, to be shown during classification
+% ** NOTE **: The images must be in the folder '.pics/'
 img_open_hand = imread('pics/open_hand.jpg');
 img_closed_fist = imread('pics/closed_fist.jpg');
 img_index_finger = imread('pics/index_finger.jpg');
@@ -109,8 +110,6 @@ for i = 1:NUM_CHANNELS
 end
 
 
-
-
 %  Construct the components.
 [left, bottom] = calculate_index(screen_width, screen_height, ...
 					button_width, button_height, screen_margin, ...
@@ -118,14 +117,14 @@ end
 img_axes = axes('Units', 'pixels', 'Position', [left, bottom, image_width, image_height], 'Visible', 'off',...
 				'XTickLabel','', 'YTickLabel','');
 
-% TODO: remove the line below
-imshow(img_open_hand);
+%imshow(img_open_hand); 	% TODO: remove the line below
 
 [left, bottom] = calculate_index(screen_width, screen_height, ...
 					button_width, button_height, screen_margin, ...
-					1, 3);
-h_TextBox = uicontrol('Style','text','String','Classification Number', 'FontSize', 42,...
-   'Position', [left, bottom, screen_width/2, button_height], 'HorizontalAlignment', 'center');
+					1, 4);
+		' Gesture: N/A (Press ''CLASSIFY'' to begin) '
+h_TextBox = uicontrol('Style','text','String', 'Gesture: N/A (Press ''CLASSIFY'' to begin)',...
+	 'FontSize', 42, 'Position', [left, bottom, screen_width/2, button_height], 'HorizontalAlignment', 'left');
 
 
 [left, bottom] = calculate_index(screen_width, screen_height, ...
