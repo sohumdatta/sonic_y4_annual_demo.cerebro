@@ -58,6 +58,11 @@ plottedFilteredData8 = zeros(1,PLOT_WINDOW);
 plottedRawData = zeros(NUM_CHANNELS, PLOT_WINDOW);
 plottedFilteredData = zeros(NUM_CHANNELS, PLOT_WINDOW);
 
+
+img_open_hand = imread('pics/open_hand.jpg');
+img_closed_fist = imread('pics/closed_fist.jpg');
+img_index_finger = imread('pics/index_finger.jpg');
+
 %% -- This portion is added for execution in Linux
 port_no = 0;
 SERIAL_PORT = strcat('/dev/rfcomm', int2str(port_no))
@@ -85,6 +90,9 @@ screen_width = screen_sz(3); screen_height = screen_sz(4);
 	
 % button widths and heights are 1/20th the size of a screen
 button_width = floor(screen_width/20);	button_height = floor(screen_height/20);	
+
+% icon image widths and heights
+image_width  = floor(screen_width/7); image_height = floor(screen_height/5);
 	
 % margins are maximum of width and height of buttons
 screen_margin = min(button_width, button_height);
@@ -101,10 +109,21 @@ for i = 1:NUM_CHANNELS
 end
 
 
+
+
 %  Construct the components.
 [left, bottom] = calculate_index(screen_width, screen_height, ...
 					button_width, button_height, screen_margin, ...
 					1, 2);
+img_axes = axes('Units', 'pixels', 'Position', [left, bottom, image_width, image_height], 'Visible', 'off',...
+				'XTickLabel','', 'YTickLabel','');
+
+% TODO: remove the line below
+imshow(img_open_hand);
+
+[left, bottom] = calculate_index(screen_width, screen_height, ...
+					button_width, button_height, screen_margin, ...
+					1, 3);
 h_TextBox = uicontrol('Style','text','String','Classification Number', 'FontSize', 42,...
    'Position', [left, bottom, screen_width/2, button_height], 'HorizontalAlignment', 'center');
 
@@ -112,8 +131,8 @@ h_TextBox = uicontrol('Style','text','String','Classification Number', 'FontSize
 [left, bottom] = calculate_index(screen_width, screen_height, ...
 					button_width, button_height, screen_margin, ...
 					5, 1);
-h_FlushClassifyData = uicontrol('Style','pushbutton','String','FLUSH & CLASSIFY',...
-   'Position', [left, bottom, button_width, button_height], 'Callback', {@FlushClassifyData_callback});
+h_ClassifyData = uicontrol('Style','pushbutton','String','CLASSIFY',...
+   'Position', [left, bottom, button_width, button_height], 'Callback', {@ClassifyData_callback});
 
 
 [left, bottom] = calculate_index(screen_width, screen_height, ...
