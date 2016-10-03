@@ -37,7 +37,7 @@ function mycallback (s,event)
 	figure(gcf);
 
 	for j = 1:8
-    	filtered_channels(:,j) = preprocessing (channels(:,j), j);
+%    	filtered_channels(:,j) = preprocessing (channels(:,j), j);
 	end
 	%% Note: at this point channels and filtered_channels have each row a data 
 	% time instant and each column a channel value. We want to now update the variables
@@ -46,12 +46,12 @@ function mycallback (s,event)
 	
 	% changes this packet that will be plotted
 	newRawData = channels';
-	newFilteredData = filtered_channels';
+%	newFilteredData = filtered_channels';
 	num_samples = size(newRawData, 2);
 
 	% only retain at most the recent PLOT_WINDOW samples
 	newRawData(:,1:num_samples-PLOT_WINDOW) = [];
-	newFilteredData(:,1:num_samples-PLOT_WINDOW) = [];
+%	newFilteredData(:,1:num_samples-PLOT_WINDOW) = [];
 	num_samples = size(newRawData, 2);
 
 	% Update rules for the plot link sources
@@ -64,14 +64,14 @@ function mycallback (s,event)
 		plottedRawData7 = [plottedRawData7(num_samples+1:end), newRawData(7,:)];
 		plottedRawData8 = [plottedRawData8(num_samples+1:end), newRawData(8,:)];
 
-		plottedFilteredData1 = [plottedFilteredData1(num_samples+1:end), newFilteredData(1,:)]; 
-		plottedFilteredData2 = [plottedFilteredData2(num_samples+1:end), newFilteredData(2,:)]; 
-		plottedFilteredData3 = [plottedFilteredData3(num_samples+1:end), newFilteredData(3,:)]; 
-		plottedFilteredData4 = [plottedFilteredData4(num_samples+1:end), newFilteredData(4,:)]; 
-		plottedFilteredData5 = [plottedFilteredData5(num_samples+1:end), newFilteredData(5,:)]; 
-		plottedFilteredData6 = [plottedFilteredData6(num_samples+1:end), newFilteredData(6,:)]; 
-		plottedFilteredData7 = [plottedFilteredData7(num_samples+1:end), newFilteredData(7,:)]; 
-		plottedFilteredData8 = [plottedFilteredData8(num_samples+1:end), newFilteredData(8,:)]; 
+%		plottedFilteredData1 = [plottedFilteredData1(num_samples+1:end), newFilteredData(1,:)]; 
+%		plottedFilteredData2 = [plottedFilteredData2(num_samples+1:end), newFilteredData(2,:)]; 
+%		plottedFilteredData3 = [plottedFilteredData3(num_samples+1:end), newFilteredData(3,:)]; 
+%		plottedFilteredData4 = [plottedFilteredData4(num_samples+1:end), newFilteredData(4,:)]; 
+%		plottedFilteredData5 = [plottedFilteredData5(num_samples+1:end), newFilteredData(5,:)]; 
+%		plottedFilteredData6 = [plottedFilteredData6(num_samples+1:end), newFilteredData(6,:)]; 
+%		plottedFilteredData7 = [plottedFilteredData7(num_samples+1:end), newFilteredData(7,:)]; 
+%		plottedFilteredData8 = [plottedFilteredData8(num_samples+1:end), newFilteredData(8,:)]; 
 	%end	%TODO: remove
 	refreshdata			% NOTE: the plot must refresh now
 
@@ -79,7 +79,7 @@ function mycallback (s,event)
 %	plot_channels(NUM_CHANNELS, channels, filtered_channels);		
 
 	entireRawData = [entireRawData; channels];
-	entireFilteredData = [entireFilteredData; filtered_channels];
+	%entireFilteredData = [entireFilteredData; filtered_channels];
 	
 %	buffer_bluetooth = buffer;
 %	assignin('base', 'buffer_bluetooth', buffer);

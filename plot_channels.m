@@ -20,16 +20,18 @@ function [h_raw, h] = plot_channels(NUM_CHANNELS, channels, filtered_channels)
 
 	%%%% Beginnning  of Plot lines
 
+	h = [];	%TODO: remove this 
 %	clf	% clear frame
 	figure(gcf); 	%plot on current figure or create new one
 	for i = 1:NUM_CHANNELS
-		subplot(NUM_CHANNELS,2,2*i-1)
+		%subplot(NUM_CHANNELS,2,2*i-1)	%TODO: uncomment this and remove the line below
+		subplot(NUM_CHANNELS+1,1,i)
 		h_raw(i) = plot(xrange, channel_raw(i,:)); title(['Channel ', int2str(i)]);
 		ylim(yrange); xlim([1 n]);
 
-		subplot(NUM_CHANNELS,2,2*i)
-		h(i) = plot(xrange, channel(i,:)); title(['Filtered ', int2str(i)]);
-		ylim(yfilterrange); xlim([1 n]);
+%		subplot(NUM_CHANNELS,2,i)
+%		h(i) = plot(xrange, channel(i,:)); title(['Filtered ', int2str(i)]);
+%		ylim(yfilterrange); xlim([1 n]);
 	end
 
 %	drawnow
