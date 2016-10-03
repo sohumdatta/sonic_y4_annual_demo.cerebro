@@ -53,9 +53,9 @@ function classify_hd_callback (s,event)
 
 	refreshdata			% NOTE: the plot must refresh now
 	
-	KeySet = {1, 2, 3, 4};
-	valueSet = {'Resting', 'Index Finger', 'Fist closed', 'Palm up'};
-	imageSet = {'[]', 'img_index_finger', 'img_closed_fist', 'img_open_hand'};
+	KeySet = {1, 2, 3, 4, 5, 6};
+	valueSet = {'Resting', 'Index Finger', 'Fist closed', 'Palm up', 'Three fingers', 'V shaped'};
+	imageSet = {'[]', 'img_index_finger', 'img_closed_fist', 'img_open_hand', '[]', '[]'};
 	mapDesc = containers.Map(KeySet, valueSet);		% A container map of gesture descriptions
 	mapImg = containers.Map(KeySet, imageSet);		% A container map of image names used in the calling main
 
