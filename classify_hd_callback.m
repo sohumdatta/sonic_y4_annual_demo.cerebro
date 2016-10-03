@@ -1,11 +1,7 @@
 % classify_hd_callback.m: callback function to plot, process and classify data
 
 function classify_hd_callback (s,event)
-%	disp('mycallback entered.');   
-	
 	% the following global variables are already defined in the main.m
-%	global entireRawData;
-%	global entireFilteredData;
 	global plottedRawData1;	
 	global plottedRawData2;	
 	global plottedRawData3;	
@@ -14,7 +10,6 @@ function classify_hd_callback (s,event)
 	global plottedRawData6;	
 	global plottedRawData7;	
 	global plottedRawData8;	
-%	global NUM_CHANNELS;
 	global PLOT_WINDOW;
 	global flag_classify;
 
@@ -33,13 +28,10 @@ function classify_hd_callback (s,event)
 	disp(msg);
 	channels = read_serial_port(buffer);   
 
-%	hold on;
 	figure(gcf);
 
-	%% Note: at this point channels and filtered_channels have each row a data 
-	% time instant and each column a channel value. We want to now update the variables
-	% plottedRawData and plottedFilteredData where each row is a channel and each column
-	% is a time instant.
+	%% Note: at this point channels have each row a data 
+	% time instant and each column a channel value. 
 	
 	% changes this packet that will be plotted
 	newRawData = channels';
@@ -61,42 +53,31 @@ function classify_hd_callback (s,event)
 
 	refreshdata			% NOTE: the plot must refresh now
 	
-KeySet = {1, 2, 3, 4};
-valueSet = {'Resting', 'Index Finger', 'Fist closed', 'Palm up'};
-imageSet = {'[]', 'img_index_finger', 'img_closed_fist', 'img_open_hand'};
-mapDesc = containers.Map(KeySet, valueSet);		% A container map of gesture descriptions
-mapImg = containers.Map(KeySet, imageSet);		% A container map of image names used in the calling main
+	KeySet = {1, 2, 3, 4};
+	valueSet = {'Resting', 'Index Finger', 'Fist closed', 'Palm up'};
+	imageSet = {'[]', 'img_index_finger', 'img_closed_fist', 'img_open_hand'};
+	mapDesc = containers.Map(KeySet, valueSet);		% A container map of gesture descriptions
+	mapImg = containers.Map(KeySet, imageSet);		% A container map of image names used in the calling main
 
-
-
-%full dataset test
+	%full dataset test
 	clear test_set;
 	window = 1024;
 	DS = 20;
+
 	%for i=1:window:size(predata,1)-window
     for c=1:1:4
        	predata(:,c) = preprocessing_simone_cancel_offset(channels(:,c));
     end
-    %test_set(:,1:4) = predata(i:DS:i+window-1,1:4);
+
+	%test_set(:,1:4) = predata(i:DS:i+window-1,1:4);
     test_set(:,1:4) = predata(1:DS:end,1:4);
+
 	if(flag_classify == 1)
     	[predicLabel, freq] = hdctest (test_set, AM, CiM, iM, D, N, percision, NLABELS);
+
 		evalin('base',['set(h_TextBox, ''String'', '' Gesture: ', mapDesc(predicLabel),  ''');']);	
-		evalin('base', ['axes(img_axes); imshow(', mapImg(predicLabel),');');	% plot the corresponding image in the space
+		evalin('base', ['axes(img_axes); imshow(', mapImg(predicLabel),');']);	% plot the corresponding image in the space
 	else
-		evalin('base',['set(h_TextBox, ''String'', '' Gesture: N/A (Press ''CLASSIFY'' to begin) '');']);
 		evalin('base','axes(img_axes); imshow([]);');	% clear the image being shown
 	end
-%	switch (predicLabel)
-%		case 1
-%			str = 'REST';
-%		case 2
-%			str = 'INDEX FINGER';
-%		case 3
-%			str =  'FIST CLOSED';
-%		case 4
-%			str =  'PALM UP';
-%		case 5
-%			str =  'PALM DOWN';
-%	end	%switch
 end	%classify_hd_callback
