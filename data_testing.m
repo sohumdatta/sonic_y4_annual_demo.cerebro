@@ -91,7 +91,7 @@ screen_margin = min(button_width, button_height);
 
 %  Create and then hide the UI as it is being constructed.
 f = figure('Visible','off','Position',[1 1 screen_width screen_height]);
-set(f, 'Name', 'Hyper-dimensional Computing on EMG Demo','NumberTitle','off');
+set(f, 'Name', 'Hyper-dimensional Computing for hand gesture recognition using EMG','NumberTitle','off');
   
 
 [h_raw, h] = plot_channels(NUM_CHANNELS, plottedRawData, plottedFilteredData);		

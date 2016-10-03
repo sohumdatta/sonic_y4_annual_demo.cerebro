@@ -1,22 +1,33 @@
 % calculate_index.m: function to calculate left and bottom pixels for GUI object placement
 % check_integrity.m: check if the processed stream data and batch data are within an error always
-% diff_to_env.m: offset cancellation and single ended converter by Simone
-% filtroesponenziale_abbas.m: modified exponential filter by Abbas
-% filtroesponenziale.m: Exponential filtering used by Simone
+% classify_hd_callback.m: callback function to plot, process and classify data
+% computeNgram.m: computes N gram for the HD algorithm
+% cosAngle.m: returns cosine angle between two vectors
+% data_collection.m: main script for data collection, not trained or tested in this script
+% data_testing.m: main script for testing data for HD demo Cerebro
+% diff_to_env.m: filter to subtract mean, absolute value, exponential averaging
+% filtroesponenziale_abbas.m: exponential avergaing by abbas, batch mode
+% filtroesponenziale.m: Simone's original exponential averaging filter (batch mode only)
+% FlushClassifyData_callback.m: callback for pushbutton 'FLUSH DATA', will flush entireRawData and entireFilteredData
 % FlushData_callback.m: callback for pushbutton 'FLUSH DATA', will flush entireRawData and entireFilteredData
-% main.m: main script for cerebro demo of HD gesture recognition using matlab bluetooth driver
-% mycallback.m: callback function on BytesAvailable to fetch new data, process, stores into variables for HD and plotting
+% hdctest.m: test the gestures using trained HD model
+% HD_demo.m: script containig HD functions for EMG, written by Abbas
+% lookupItemMemeory.m: Look up memory for HD vector recall, implemented by Abbas
+% mycallback.m: callback function on BytesAvailable to fetch new data, process, stores into variables for later HD and plotting
 % mycleanup.m : A cleanup function (not implemented yet)
 % plot_channels.m : plot all channel values, returns pointers to the plots
 % preprocessing_batch.m: a batch-only preprocessing of channel samples
 % preprocessing.m : preprocessor to filter raw data through a notch and smoothing, per channel.
-% preprocessing_simone_cancel_offset.m: exact preprocessing (batch) used by Simone with offset cancellation
-% preprocessing_simone.m: exact preprocessing (batch) used by Simone without offset cancellation
+% preprocessing_simone_cancel_offset.m: batch preprocessing with offset cancellation by Simone
+% preprocessing_simone.m: batch preprocessing without offset cancellation by Simone
 % Quit_callback.m: callback for pushbutton 'Quit', close all ports and figures, finally quit
 % read_serial_port.m : read raw value buffer, form samples from HEADER and FOOTER
 % sample_filter.m: stream iir filtering
 % SaveData_callback.m: callback for pushbutton 'SAVE', will save base workspace to save_<i>.mat
 % StartStream_callback.m: callback for pushbutton 'Start Stream', will write '='
 % StopStream_callback.m: callback for pushbutton 'Stop Stream', will write ':'
+% testHD_batch.m: script to test HD (batch mode), by Abbas
 % test_sample_filter.m: test sample_filter.m
+% trainHD.m: trains HD on gestures and returns HD states 
 % filtroesponenziale.m : Simone's exponential average filter; approximate
+% visualizeAM.m: sampling and plotting routine for high-dimensional spaces, by Miles

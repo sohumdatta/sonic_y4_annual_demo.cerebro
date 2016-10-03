@@ -1,4 +1,4 @@
-%trainHD.m: trains HD on gestures
+% trainHD.m: trains HD on gestures and returns HD states 
 
 global AM;
 global CiM;

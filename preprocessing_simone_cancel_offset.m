@@ -1,3 +1,4 @@
+% preprocessing_simone_cancel_offset.m: batch preprocessing with offset cancellation by Simone
 function [filtrato] = preprocessing_simone_cancel_offset (in)
 f_0 = 60; % 60 Hz for the US
 Q = 50;

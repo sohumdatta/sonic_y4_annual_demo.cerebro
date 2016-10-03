@@ -1,4 +1,4 @@
-
+% lookupItemMemeory.m: Look up memory for HD vector recall, implemented by Abbas
 function randomHV = lookupItemMemeory (itemMemory, rawKey, D, percision)
 %
 % DESCRIPTION   : recalls a vector from item Memory based on inputs

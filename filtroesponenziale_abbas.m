@@ -1,3 +1,4 @@
+% filtroesponenziale_abbas.m: exponential avergaing by abbas, batch mode
 function [ filtre ] = filtroesponenziale_abbas(adc_raw, filt_prev)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here

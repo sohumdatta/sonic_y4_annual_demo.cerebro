@@ -1,3 +1,4 @@
+% filtroesponenziale.m: Simone's original exponential averaging filter (batch mode only)
 function [ vettorefiltrato ] = filtroesponenziale(coeff, vettore)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here

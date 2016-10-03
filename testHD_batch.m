@@ -1,3 +1,4 @@
+% testHD_batch.m: script to test HD (batch mode), by Abbas
 
 %full dataset test
 clear all_labels;

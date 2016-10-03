@@ -1,4 +1,4 @@
-% mycallback.m: callback function on BytesAvailable to fetch new data, process, stores into variables for HD and plotting
+% mycallback.m: callback function on BytesAvailable to fetch new data, process, stores into variables for later HD and plotting
 
 function mycallback (s,event)
 %	disp('mycallback entered.');   

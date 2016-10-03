@@ -1,4 +1,4 @@
-% data_collection.m: main script for data collection for HD demo Cerebro
+% data_collection.m: main script for data collection, not trained or tested in this script
 
 clear all; close all; clc;
 

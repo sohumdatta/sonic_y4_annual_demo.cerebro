@@ -1,3 +1,4 @@
+% hdctest.m: test the gestures using trained HD model
 function [votedLabel, frequency] = hdctest (testSet, AM, CiM, iM, D, N, percision, NLABELS)
 %
 % DESCRIPTION   : test accuracy based on input testing data

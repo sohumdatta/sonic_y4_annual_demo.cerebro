@@ -1,4 +1,4 @@
-
+% computeNgram.m: computes N gram for the HD algorithm
 function Ngram = computeNgram (buffer, CiM, D, N, percision, iM)
     %init
     ch1HV = zeros (1,D);

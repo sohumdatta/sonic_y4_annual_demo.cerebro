@@ -1,3 +1,4 @@
+% HD_demo.m: script containig HD functions for EMG, written by Abbas
 function message = HD_demo
   assignin('base','lookupItemMemeory', @lookupItemMemeory);
   assignin('base','initItemMemories', @initItemMemories);
